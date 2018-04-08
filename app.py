@@ -7,7 +7,8 @@ filename = "output.txt"
 
 
 
-schema = ['Date', 'Time', 'Source MAC', 'Source IP', 'Source Port', 'Dest MAC', 'Dest IP', 'Dest Port', 'Protocol', 'good_packet', ' allowed']
+schema = ['Date', 'Time', 'Source MAC', 'Source IP', 'Source Port', 'Dest MAC', 'Dest IP',
+          'Dest Port', 'Protocol', 'good_packet', 'allowed']
 
 def read_data():
     indexed_json = {}
@@ -16,23 +17,23 @@ def read_data():
         for line in fp.readlines():
             cur_json = {}
             data = line.split(",")
-            print(data)
             for index, column in enumerate(schema):
-                cur_json[column] = data[index]
+                cur_json[column] = data[index].strip()
             indexed_json[sno] = cur_json
             sno+=1
     return indexed_json
 
 
 def write_data(data):
-    csv_data = []
-    for key, val in data.keys():
+    entire_data = []
+    for key, val in data.items():
         cur_data = [""]*len(schema)
         for index, col in enumerate(schema):
-            cur_data[index] = col[schema[index]]
-        csv_data.append(",".join(cur_data))
+            cur_data[index] = val[col]
+        entire_data.append(",".join(cur_data))
     with open(filename, 'w') as fp:
-        fp.write("\n".join(csv_data))
+        fp.write("\n".join(entire_data))
+
 
 
 @app.route("/index")
@@ -45,11 +46,10 @@ def index_page():
 def change():
     info = json.loads(request.data)
     cur_output = read_data()
-    for key, val in info.values():
-        cur_output[key] = val
+    for key, val in info.items():
+        cur_output[int(key)] = val
     write_data(cur_output)
-
-
+    return "OK"
 
 if __name__ == '__main__':
     app.run(debug=True)
