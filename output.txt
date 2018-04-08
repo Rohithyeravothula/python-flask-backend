@@ -1,0 +1,4 @@
+Date,Time,Source MAC,Source IP,Source Port,Dest MAC,Dest IP,Dest Port,Protocol,good_packet, allowed
+Date,Time,Source MAC,Source IP,Source Port,Dest MAC,Dest IP,Dest Port,Protocol,good_packet, allowed
+Date,Time,Source MAC,Source IP,Source Port,Dest MAC,Dest IP,Dest Port,Protocol,good_packet, allowed
+Date,Time,Source MAC,Source IP,Source Port,Dest MAC,Dest IP,Dest Port,Protocol,good_packet, allowed
